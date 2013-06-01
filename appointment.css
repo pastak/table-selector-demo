@@ -1,0 +1,31 @@
+body{
+	width:600px;
+}
+tr.select{
+	border: 3px blue solid;
+}
+td.dragStart{
+	background-color:red !important;
+}
+td.selected{
+	background-color:pink;
+}
+thead > tr > td{
+	font-size :12px;
+}
+div#conformPopup{
+	display:none;
+	padding:10px;
+	width:450px;
+	left:50px;
+	top:50px;
+	z-index : 3;
+	background-color : #ffffff;
+	position : absolute;
+}
+.datecell{
+user-select: none; /* CSS3 */
+-moz-user-select: none; /* Firefox */
+-webkit-user-select: none; /* Safari、Chromeなど */
+-ms-user-select: none; /* IE10かららしい */
+}
