@@ -1,9 +1,6 @@
 body{
 	width:600px;
 }
-tr.select{
-	border: 3px blue solid;
-}
 td.dragStart{
 	background-color:red !important;
 }

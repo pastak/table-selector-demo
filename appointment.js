@@ -17,6 +17,7 @@ $(window).load(function(){
 	var f_mouseOver = function(){
 	if(status == 1){
 		var startRow = f_select.row;
+		n_selected = $(this).data('cell');
 		var thisRow = $(this).data('cell').row;
 	if(f_select.line == $(this).data('cell').line){	
 		$('tbody > tr > td.selected').removeClass('selected');
@@ -50,8 +51,9 @@ $(window).load(function(){
 		}
 	}
 	var f_DragEnd = function(){
+		//console.log('aaaa');
 		var startElmData = $('.dragStart').data('cell');
-		var endElmData = $(this).data('cell');
+		var endElmData = n_selected;
 		var startTime = $(('tr:eq('+(startElmData.row )+') > td:eq(0)')).text();
 		var endTime = $('tr:eq('+(endElmData.row )+') > td:eq(0)').text();
 		status = 0;
@@ -70,6 +72,7 @@ $(window).load(function(){
 		//console.log(startTime+' ~ '+endTime);
 		$('#conformPopup').toggle();
 		$('tbody>tr>td').unbind();
+		$('body').unbind();
 	}
 	/*
 	$('td').bind('dragstart',f_DragStart);
@@ -79,11 +82,11 @@ $(window).load(function(){
 	//$('td').click(f_DragStart);
 	$('tbody>tr>td').mousedown(f_DragStart);
 	$('tbody>tr>td').mouseover(f_mouseOver);
-	$('tbody>tr>td').mouseup(f_DragEnd);
+	$('body').mouseup(f_DragEnd);
 	$('#appointCancelButton').click(function(){
-	$('tbody>tr>td').mousedown(f_DragStart);
-	$('tbody>tr>td').mouseover(f_mouseOver);
-	$('tbody>tr>td').mouseup(f_DragEnd);
+		$('tbody>tr>td').mousedown(f_DragStart);
+		$('tbody>tr>td').mouseover(f_mouseOver);
+		$('body').mouseup(f_DragEnd);
 		$('#conformPopup').toggle();
 	})
 })

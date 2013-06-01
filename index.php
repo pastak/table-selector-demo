@@ -80,7 +80,7 @@
 		if($k == 1){
 			echo'<td></td>';
 		}else{
-			echo '<td>'.'5月2'.$k.'日</td>';
+			echo '<td onSelectStart=”return false;” unselectable=”on” class="datecell">'.'5月2'.$k.'日</td>';
 		}
 }?>
 		</tr>
