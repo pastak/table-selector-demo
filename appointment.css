@@ -9,9 +9,11 @@ td.dragStart{
 }
 td.selected{
 	background-color:pink;
-}
-thead > tr > td{
+} 
+tr > td{
 	font-size :12px;
+	padding:0px !important;
+	text-align:center !important;
 }
 div#conformPopup{
 	display:none;

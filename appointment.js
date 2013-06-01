@@ -7,6 +7,7 @@ $(window).load(function(){
 	 */
 	var p_selected = {};
 	var n_selected = {};
+	var f_select = {};
 	var director = 0;
 	/*
 	 * 0 : default
@@ -14,38 +15,31 @@ $(window).load(function(){
 	 * 2 : 上向き
 	 */
 	var f_mouseOver = function(){
-		if(status == 1){
-			n_selected = $(this).data('cell');
-			if(n_selected.line == p_selected.line){
-				//同じ列かを確認
-				console.log('director : '+director);
-				if(n_selected.row == (p_selected.row+1)){
-					//下向きの動作
-					//それまで上向きだったら、１つ下の要素をトグルする
-					if(director==2){
-$(('tr:eq('+(n_selected.row-2)+')>td:eq('+(n_selected.line-1)+')')).toggleClass('selected')
-					}
-					director = 1;
-					$(this).toggleClass('selected');
-					p_selected = n_selected;
-				}else if(n_selected.row == (p_selected.row-1)){
-					//上向きの動作
-					//それまで下向きだったら、１つ上の要素をトグルする
-					if(director == 1){
-						$(('tr:eq('+(n_selected.row)+')>td:eq('+(n_selected.line-1)+')')).toggleClass('selected')
-					}
-					director = 2;
-					$(this).toggleClass('selected');
-					p_selected = n_selected;
-				}
+	if(status == 1){
+		var startRow = f_select.row;
+		var thisRow = $(this).data('cell').row;
+	if(f_select.line == $(this).data('cell').line){	
+		$('tbody > tr > td.selected').removeClass('selected');
+		if(thisRow > startRow){
+		//始めよりも下
+			for(var i=startRow;i < thisRow; i++){
+				$('tbody > tr:eq('+i+') > td:eq('+($(this).data('cell').line-1)+')').addClass('selected');
+			}
+		}else{
+		//始めより上
+			for(var i=(thisRow-1);i<startRow;i++){
+				$('tbody > tr:eq('+i+') > td:eq('+($(this).data('cell').line-1)+')').addClass('selected');
 			}
 		}
-	};
+	}
+	}
+	}
 	var f_DragStart = function(){
 		if(status == 0){
 			$(this).addClass('dragStart');
 			p_selected = $(this).data('cell');
 			status = 1;
+			f_select = $('.dragStart').data('cell');
 		}else if(status ==1){
 			
 		}else{
@@ -87,9 +81,9 @@ $(('tr:eq('+(n_selected.row-2)+')>td:eq('+(n_selected.line-1)+')')).toggleClass(
 	$('tbody>tr>td').mouseover(f_mouseOver);
 	$('tbody>tr>td').mouseup(f_DragEnd);
 	$('#appointCancelButton').click(function(){
-		$('tbody>tr>td').mousedown(f_DragStart);
-		$('tbody>tr>td').mouseover(f_mouseOver);
-		$('tbody>tr>td').mouseup(f_DragEnd);
+	$('tbody>tr>td').mousedown(f_DragStart);
+	$('tbody>tr>td').mouseover(f_mouseOver);
+	$('tbody>tr>td').mouseup(f_DragEnd);
 		$('#conformPopup').toggle();
 	})
 })
